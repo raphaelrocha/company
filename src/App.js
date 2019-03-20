@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import {BrowserRouter, Route} from 'react-router-dom';
+
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Services from "./components/Services";
-import {BrowserRouter, Route} from 'react-router-dom';
 import Portfolio from "./components/Portfolio";
 import Pricing from "./components/Pricing";
 import Contact from "./components/Contact";
+import Admin from "./components/admin/Admin";
 
 class App extends Component {
   render() {
@@ -19,6 +21,7 @@ class App extends Component {
           <Route path='/portfolio' component={Portfolio}/>
           <Route path='/pricing' component={Pricing}/>
           <Route path='/contact' component={Contact}/>
+          <Route path='/admin' component={Admin}/>
           <Footer/>
         </div>
       </BrowserRouter>
