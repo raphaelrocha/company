@@ -8,7 +8,7 @@ import Services from "./components/Services";
 import Portfolio from "./components/portfolio/screens/Portfolio";
 import Pricing from "./components/Pricing";
 import Contact from "./components/Contact";
-import Admin from "./components/admin/Admin";
+import Admin from "./components/admin/screens/Admin";
 
 class App extends Component {
   render() {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import AdminMenu from "./AdminMenu";
+import AdminMenu from "../components/AdminMenu";
 import {Route} from 'react-router-dom';
 import AdminPortfolio from "./AdminPortfolio";
 
