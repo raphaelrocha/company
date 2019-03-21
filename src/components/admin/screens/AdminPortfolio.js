@@ -10,10 +10,28 @@ export default class AdminPortfolio extends Component{
   }
 
   savePortfolio = (e) => {
-    console.log('savePortfolio');
-    console.log(this.refs.title.value);
-    console.log(this.refs.description.value);
-    console.log(this.refs.image.value);
+    let file = this.refs.image.files[0];
+    let {name,size,type} = file;
+
+    console.log(file);
+
+    let ref = firebaseStorage.ref(name);
+
+    ref.put(file)
+      .then(image => {
+        console.log(image.metadata);
+        ref.getDownloadURL().then(url=>{
+          let data = {
+            image: url,
+            title: this.refs.title.value,
+            description:this.refs.description.value,
+          };
+          firebaseConfig.push('portfolio',{data});
+        })
+      })
+      .catch(err=>{
+        console.warn('deu erro', err);
+      });
 
     /*
     Evita o reload automático da tela.
