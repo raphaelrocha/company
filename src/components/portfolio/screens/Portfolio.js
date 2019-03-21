@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import firebaseConfig from './../firebaseConfig'
+import firebaseConfig from '../../../firebaseConfig'
+import ItemPortfolio from "../components/ItemPortfolio";
 
 class Portfolio extends Component{
 
@@ -8,10 +9,15 @@ class Portfolio extends Component{
 
     this.state = {
       portifolio:{
-        title: 'Madri',
-        description: 'Uma cidade muito bonita'
+
       }
-    }
+    };
+
+    firebaseConfig.syncState('portfolio',{
+      context:this,
+      state:'portifolio',
+      asArray: false
+    })
   }
 
   render() {
@@ -23,13 +29,12 @@ class Portfolio extends Component{
           <h4>What we have created</h4>
           <div className='row text-center '>
 
-            <div className='col-sm-4'>
-              <div className='thumbnail'>
-                <img src='paris.jpg' alt='Madri' width='400' height='300'/>
-                <p><strong>{this.state.portifolio.title}</strong></p>
-                <p>{this.state.portifolio.description}</p>
-              </div>
-            </div>
+            {
+              Object.keys(this.state.portifolio)
+                .map(key=>{
+                  return (<ItemPortfolio key={key} content={this.state.portifolio[key]}/>)
+                })
+            }
 
           </div>
           <br/>
