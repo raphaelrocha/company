@@ -1,36 +1,50 @@
 import React, {Component} from 'react';
 
 import firebaseConfig, {firebaseStorage} from "../../../firebaseConfig";
+import {sleep} from "../../../helpers/timer";
 
 export default class AdminPortfolio extends Component{
 
   constructor(props) {
     super(props);
 
+    this.state = {
+      saving: false,
+      error: false,
+      errorMessage: '',
+    }
   }
 
   savePortfolio = (e) => {
-    let file = this.refs.image.files[0];
-    let {name,size,type} = file;
 
-    console.log(file);
+    const itemPortifolio = {
+      title: this.refs.title.value,
+      description:this.refs.description.value,
+      file:this.refs.image.files[0]
+    };
+
+    this.setState({saving: true});
+
+    // let file = this.refs.image.files[0];
+    let {name,size,type} = itemPortifolio.file;
 
     let ref = firebaseStorage.ref(name);
 
-    ref.put(file)
+    ref.put(itemPortifolio.file)
       .then(image => {
-        console.log(image.metadata);
         ref.getDownloadURL().then(url=>{
           let data = {
             image: url,
-            title: this.refs.title.value,
-            description:this.refs.description.value,
+            title: itemPortifolio.title,
+            description:itemPortifolio.description,
           };
           firebaseConfig.push('portfolio',{data});
+          this.setState({saving: false, error: false});
         })
       })
       .catch(err=>{
-        console.warn('deu erro', err);
+        console.warn('deu erro', err.message);
+        this.setState({saving: false, error: true, errorMessage: err.message});
       });
 
     /*
@@ -40,6 +54,24 @@ export default class AdminPortfolio extends Component{
   };
 
   render() {
+
+    if(this.state.saving){
+      return (
+        <div className={'container'}>
+          <h1><span className="glyphicon glyphicon-refresh">Salvando....</span></h1>
+        </div>
+      );
+    }
+
+    if(this.state.error){
+      sleep(3000).then(()=>{this.setState({saving: false, error: false});})
+      return (
+        <div className={'container'}>
+          <p><span className="glyphicon glyphicon-refresh">{this.state.errorMessage}</span></p>
+        </div>
+      );
+    }
+
     return (
       <div style={{padding:'120px'}}>
         <form onSubmit={this.savePortfolio.bind(this)}>

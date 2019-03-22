@@ -30,7 +30,11 @@ export default class Admin extends Component{
 
   render() {
     if(this.state.loginInProgress){
-      return (<h1>Aguarde....</h1>);
+      return (
+        <div className={'container'}>
+          <h1><span className="glyphicon glyphicon-refresh">Aguarde....</span></h1>
+        </div>
+      );
     }
 
     if(!this.state.logged){
@@ -39,7 +43,7 @@ export default class Admin extends Component{
 
     let url = this.props.match.url;
     return (
-      <div>
+      <div className={'container'}>
         <h2>Painel Administrativo</h2>
         <Route path={'/'} component={AdminMenu}/>
         <Route path={url+'/portfolio'} component={AdminPortfolio}/>
