@@ -64,7 +64,7 @@ export default class AdminPortfolio extends Component{
     }
 
     if(this.state.error){
-      sleep(3000).then(()=>{this.setState({saving: false, error: false});})
+      sleep(3000).then(()=>{this.setState({saving: false, error: false});});
       return (
         <div className={'container'}>
           <p><span className="glyphicon glyphicon-refresh">{this.state.errorMessage}</span></p>

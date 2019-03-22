@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Home from "./components/Home";
-import Services from "./components/Services";
+import Footer from "./components/footer/screens/Footer";
+import Header from "./components/header/screens/Header";
+import Home from "./components/home/screens/Home";
+import Services from "./components/services/screens/Services";
 import Portfolio from "./components/portfolio/screens/Portfolio";
-import Pricing from "./components/Pricing";
-import Contact from "./components/Contact";
+import Pricing from "./components/pricing/screens/Pricing";
+import Contact from "./components/contact/screens/Contact";
 import Admin from "./components/admin/screens/Admin";
 import Login from "./components/login/screens/Login";
 
